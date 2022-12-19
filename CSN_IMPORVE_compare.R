@@ -2,9 +2,9 @@
 # rm(list=ls())
 
 ##set working directory
-setwd("/Users/ztttttt/Documents/HEI PMF/R - original IMPROVE")
+setwd("xxxx")
 getwd()
-data.dir <- "Users/ztttttt/Documents/HEI PMF/R - original IMPROVE"
+data.dir <- "xxxx"
 
 ##packages in need
 require(tidyr) # separate{tidyr}, gather{tidyr}, spread{tidyr},  spread is VIP function, str_split_fixed{stringr} is better than separate
@@ -38,9 +38,6 @@ imp_data$Qualifier = imp_data$Status
 imp_data_compare = select(imp_data, Dataset, State, SiteCode, Date, Method, class, CompName, Val, Qualifier, 
                           Unc, MDL, year, month)
 
-# csn_data = read.csv("/Users/ztttttt/Documents/HEI PMF/R - original CSN/CSN method collection analysis use 10032022.csv") ## with extracted collection, analysis methods
-# csn_data$Date = as.Date(csn_data$Date, format="%m/%d/%Y")
-# csn_data = read.csv("/Users/ztttttt/Documents/HEI PMF/R - original CSN/CSN data for analysis 10232022.csv") ## with extracted collection, analysis methods
 csn_data = read.csv("CSN data for analysis 12122022.csv") ## with extracted collection, analysis methods
 csn_data$X = NULL
 
@@ -51,12 +48,10 @@ csn_data$Date = as.Date(csn_data$Date)
 csn_data = subset(csn_data, Date > as.Date("2010-12-31"))
 
 csn_data$Dataset = "EPACSN"
-excluded.variables.csn = c("FlowRate", "FlowRate.tf", "FlowRate.ny", "FlowRate.qz", 
-                           "Volumn.tf", "Volumn.qz", "avgT.URG", "avgP.URG", "Volumn.ny", 
-                           "Soil", "Volume", "CS2", 
-                           "Levoglucosan", "Mannosan", "Galactosan", 
-                           "MinT", "MaxT", "avgT", "MinP", "MaxP", "avgP")
+excluded.variables.csn = c("Soil", "CS2", 
+                           "Levoglucosan", "Mannosan", "Galactosan")
 csn_data = subset(csn_data, !(CompName %in% excluded.variables.csn))
+csn_data = subset(csn_data, Unit == "ug/m^3")
 csn_data.1 = csn_data
 
 # csn_ocec = subset(csn_data, grepl("OC1", CompName, fixed = T) | grepl("EC1", CompName, fixed = T))
@@ -192,9 +187,6 @@ imp_csn_nearest_site_data = read.csv("IMPROVE_CSN_Nearest_site_comparison.csv")
 element.group = unique(imp_data$CompName[imp_data$Method == "A-XRF"])
 ion.group = unique(imp_data$CompName[imp_data$Method == "B-IC"])
 oc.ec.group = unique(imp_data$CompName[imp_data$Method == "C-TOR"])
-# element.group = c("Al", "As", "Cr", "Cu", "Fe", "K", "Mn", "Na", "Ni", "V", "Zn")
-# ion.group = c("Cl-", "NO3", "SO4")
-# oc.ec.group = c("EC1", "EC2", "EC3", "OC1", "OC2", "OC3", "OC4")
 
 imp_csn_nearest_site_data = subset(imp_csn_nearest_site_data, Val != -999)
 unique(subset(imp_csn_nearest_site_data, Dataset == "IMPAER")$Date)[1:10]
