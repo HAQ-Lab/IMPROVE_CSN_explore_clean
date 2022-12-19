@@ -2,9 +2,9 @@
 rm(list=ls())
 
 ##set working directory
-setwd("/Users/ztttttt/Documents/HEI PMF/R - original CSN")
+setwd("XXX")
 getwd()
-data.dir <- "Users/ztttttt/Documents/HEI PMF/R - original CSN"
+data.dir <- "XXX"
 
 ##packages in need
 library(tidyr) 
