@@ -2,9 +2,9 @@
 # rm(list=ls())
 
 ##set working directory
-setwd("/Users/ztttttt/Documents/HEI PMF/R - original IMPROVE")
+setwd("XXX")
 getwd()
-data.dir <- "Users/ztttttt/Documents/HEI PMF/R - original IMPROVE"
+data.dir <- "XXX"
 
 ##packages in need
 require(tidyr) # separate{tidyr}, gather{tidyr}, spread{tidyr},  spread is VIP function, str_split_fixed{stringr} is better than separate
