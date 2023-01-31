@@ -12,7 +12,7 @@ We selected the "IMPROVE Aerosol" and "EPA CSN" sampled at a frequency of 1-in-3
 
 R scripts in this repository
 -------
-There are four R scripts in the folder now, they are:
+There are five R scripts in the folder now, they are:
 
 A) `CSN Explore.R` and B) `IMPROVE Expl.R` documents the basic exploration of CSN/IMPROVE dataset, such as the spatiotemporal distribution of PM2.5 species concentrations and comparison of the flagged and unflagged PM2.5 species concentrations.
 
@@ -20,3 +20,5 @@ C) `CSN_IMPROVE_compare.R` documents the detection and comparison of side-by-sid
 
 D) `prepare_data_for_interpolation.R`   
 In the origianl datasets, the data were organized to show the concentration of one PM species sampled on a given day on a given site for one row. With this R script, we convert it to show the concentrations of all PM species sampled on a given date at given site within one row.
+
+E) `PM_Comp_Missing.R` documents how to interpolated the NAs in datasets and comparison of different interpolation methods.
