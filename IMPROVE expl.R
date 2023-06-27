@@ -2,9 +2,9 @@
 # rm(list=ls())
 
 ##set working directory
-setwd("XXX")
+setwd("/Users/ztttttt/Documents/HEI PMF/R - original IMPROVE")
 getwd()
-data.dir <- "XXX"
+data.dir <- "Users/ztttttt/Documents/HEI PMF/R - original IMPROVE"
 
 ##packages in need
 require(tidyr) # separate{tidyr}, gather{tidyr}, spread{tidyr},  spread is VIP function, str_split_fixed{stringr} is better than separate
@@ -54,7 +54,7 @@ imp_meta_flags = read.csv("IMPROVE metadata 19 flags 2010-20.csv")
 
 ##########################################################################################
 ####### primary exploration & process #########
-imp_meta_sites = read.csv("IMPROVE sites.txt",
+imp_meta_sites = read.csv("/Users/ztttttt/Documents/HEI PMF/IMPROVE & CSN original/IMPROVE sites.txt",
                           sep = ",", dec = ".")
 imp_meta_sites$StartDate = as.Date(imp_meta_sites$StartDate, format = "%m/%d/%Y")
 imp_meta_sites$EndDate = as.Date(imp_meta_sites$EndDate, format = "%m/%d/%Y")
@@ -66,12 +66,12 @@ colnames(imp_meta_sites_use)[2] = "SiteCode"
 meta_sites_use = as.character(imp_meta_sites_use$SiteCode)
 imp_meta_sites_use.1 = subset(imp_meta_sites_use, EndDate > as.Date("2011-01-01"))
 
-imp_meta_site_history = read.csv("IMPROVE sites history.txt",
+imp_meta_site_history = read.csv("/Users/ztttttt/Documents/HEI PMF/IMPROVE & CNS original/IMPROVE sites history.txt",
                                  sep = ",", dec = ".")
 
-imp_meta_flags = read.csv("IMPROVE flags.txt",
+imp_meta_flags = read.csv("/Users/ztttttt/Documents/HEI PMF/IMPROVE & CSN original/IMPROVE flags.txt",
                           sep = ",", dec = ".")
-imp_meta_para = read.csv("IMPROVE parameters.txt",
+imp_meta_para = read.csv("/Users/ztttttt/Documents/HEI PMF/IMPROVE & CSN original/IMPROVE parameters.txt",
                          sep = ",", dec = ".")
 imp_meta_para[c("CompName", "anyname")] = str_split_fixed(imp_meta_para$ParamCode, "f", 2)
 imp_meta_para$CompName = ifelse(imp_meta_para$Units != "ug/m^3", imp_meta_para$ParamCode, imp_meta_para$CompName)
@@ -85,7 +85,7 @@ write.csv(imp_meta_sites_use, "IMPROVE metadata 196 sample sites info 2010-20.cs
 write.csv(imp_meta_flags, "IMPROVE metadata 19 flags 2010-20.csv")
 write.csv(imp_meta_para, "IMPROVE metadata 109 parameters 2010-20.csv")
 
-imp_data = read.csv("xxx_20221008_205315_uNQ0v IMPROVE.txt",
+imp_data = read.csv("/Users/ztttttt/Documents/HEI PMF/IMPROVE & CSN original/ailsa2be_20221008_205315_uNQ0v IMPROVE.txt",
                     sep = ",", dec = ".")
 head(imp_data)
 imp_data$Date = as.Date(imp_data$Date, format = "%m/%d/%Y")

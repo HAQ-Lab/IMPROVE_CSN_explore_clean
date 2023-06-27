@@ -2,68 +2,26 @@
 # rm(list=ls())
 
 ##set working directory
-setwd("XXXX")
+setwd("/Users/ztttttt/Documents/HEI PMF/R - original IMPROVE")
 getwd()
-data.dir <- "XXXX"
+data.dir <- "Users/ztttttt/Documents/HEI PMF/R - original IMPROVE"
 
 ##packages in need
-require(tidyr) 
-require(stats) 
+require(tidyr) # separate{tidyr}, gather{tidyr}, spread{tidyr},  spread is VIP function, str_split_fixed{stringr} is better than separate
+require(stats) # aggregate{stats}, VIP function
 require(ggplot2)
-require(scales) 
-require(stringr) 
+require(scales) # percent{}
+require(stringr) # str_split_fixed, separate one column into multiple
 require(dplyr)
 require(plyr)
 require(lubridate)
-require(gridExtra) 
-require(grid) 
+require(gridExtra) #grid.arrange{}
+require(grid) #textGrob{}
 library(data.table)
 
-#### import & prepare data to use ####
-imp_data = read.csv("IMPROVE component only 10092022.csv")
-imp_data$X = imp_data$X.1 = NULL
-head(imp_data)
-setDT(imp_data)
-
-imp_data$Date = as.Date(imp_data$Date)
-# imp_data$CompName[is.na(imp_data$CompName)] = "Na"
-
-imp_data$Qualifier = imp_data$Status
-imp_data_compare = select(imp_data, Dataset, State, SiteCode, Date, CompName, Val, Qualifier)
-
-csn_data = read.csv("CSN data for analysis 12122022.csv") ## with extracted collection, analysis methods
-csn_data$X = NULL
-
-head(csn_data)
-setDT(csn_data)
-
-csn_data$Date = as.Date(csn_data$Date)
-csn_data = subset(csn_data, Date > as.Date("2010-12-31"))
-
-csn_data$Dataset = "EPACSN"
-excluded.variables.csn = c("Soil", "CS2", 
-                           "Levoglucosan", "Mannosan", "Galactosan")
-csn_data = subset(csn_data, !(CompName %in% excluded.variables.csn))
-csn_data = subset(csn_data, Unit == "ug/m^3")
-csn_data.1 = csn_data
-
-# csn_ocec = subset(csn_data, grepl("OC1", CompName, fixed = T) | grepl("EC1", CompName, fixed = T))
-
-csn_data$class[csn_data$CompName %in% c("Accept.PM2.5", "PM2.5RC")] = 0
-csn_data$class[csn_data$CompName %in% c("Cl-", "K+", "NH4+", "Na+", "NO3", "SO4")] = "Ion"
-csn_data.2 = csn_data
-
-csn_data$Status = "V0"
-csn_data$Qualifier = paste(csn_data$Qualifier1, csn_data$Qualifier2, csn_data$Qualifier3)
-csn_data_compare = select(csn_data, Dataset, State, SiteCode, Date, CompName, Val, Qualifier)
-
-# exclude sites according to previous summary 
-# these sites a)not in mainland US, b)lack many species data, or c)short sampling duration
-csn.exclude.site = c(800020014, 61072003, 20900034, 20904101, 
-                     560210100, 720210010, 150030010) # site from CSN = 156-7 = 150
-csn_data_compare = subset(csn_data_compare, 
-                          !(SiteCode %in% csn.exclude.site))
-dim(csn_data_compare)
+library(maps) 
+library(usmap)
+library(ggrepel)
 
 #### 1. IMPROVE data preparation ####
 head(imp_data_compare)
